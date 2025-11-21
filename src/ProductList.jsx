@@ -260,9 +260,9 @@ function ProductList({ onHomeClick }) {
     
     const handleAddToCart = (product) =>{
         dispatch(addItem(product));
-        setAddedToCart((prevState)=>{
+        setAddedToCart((prevState)=>({
             ...prevState, [product.name]: true,
-        });
+        }));
     }
 
 
