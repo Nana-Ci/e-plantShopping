@@ -9,6 +9,7 @@ function ProductList({ onHomeClick }) {
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
     const [addedToCart, setAddedToCart] = useState({});
     const dispatch = useDispatch();
+    const cart = useSelector((state)=>state.cart);
 
     const plantsArray = [
         {
@@ -266,9 +267,8 @@ function ProductList({ onHomeClick }) {
     }
 
     const calculateTotalQuantyty =()=>{
-        let CartItems=useSelector((state)=>state.cart.items);
+        let CartItems=cart.items;
         return CartItem?CartItems.reduce((total, item) => total + item.quantity, 0) : 0;
-        
     }
 
 
@@ -324,12 +324,12 @@ function ProductList({ onHomeClick }) {
                             <div className="product-title">{plant.name}</div> {/* Display plant name */}
                             {/* Display other plant details like description and cost */}
                             <div className="product-description">{plant.description}</div> {/* Display plant description */}
-                            <div className="product-cost">${plant.cost}</div> {/* Display plant cost */}
+                            <div className="product-cost">{plant.cost}</div> {/* Display plant cost */}
                             <button
-                                className={addedToCart[plant.name]? "product-button added-to-cart" : "product-button"}
+                                className={cart.items.find(item => item.name === plant.name)? "product-button added-to-cart" : "product-button"}
                                 onClick={() => handleAddToCart(plant)} // Handle adding plant to cart
                             >
-                               {addedToCart[plant.name]? 'Added to Cart' : 'Add to Cart'}
+                               {cart.items.find(item => item.name === plant.name)? 'Added to Cart' : 'Add to Cart'}
                             </button>
                             </div>
                         ))}
