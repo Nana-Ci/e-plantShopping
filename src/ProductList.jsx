@@ -311,7 +311,7 @@ function ProductList({ onHomeClick }) {
                     {plantsArray.map((category, index) => ( // Loop through each category in plantsArray
                     <div key={index}> {/* Unique key for each category div */}
                         <h1>
-                        <div>{category.category}</div> {/* Display the category name */}
+                        <div className="product-category">{category.category}</div> {/* Display the category name */}
                         </h1>
                         <div className="product-list"> {/* Container for the list of plant cards */}
                         {category.plants.map((plant, plantIndex) => ( // Loop through each plant in the current category
@@ -327,6 +327,7 @@ function ProductList({ onHomeClick }) {
                             <div className="product-cost">{plant.cost}</div> {/* Display plant cost */}
                             <button
                                 className={cart.items.find(item => item.name === plant.name)? "product-button added-to-cart" : "product-button"}
+                                disabled={cart.items.find(item => item.name === plant.name)? "disabled" : ""}
                                 onClick={() => handleAddToCart(plant)} // Handle adding plant to cart
                             >
                                {cart.items.find(item => item.name === plant.name)? 'Added to Cart' : 'Add to Cart'}
